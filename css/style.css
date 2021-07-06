@@ -17,6 +17,7 @@ html, body{
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
 	background-color: var(--secondary);
+	touch-action: pan-y pinch-zoom;
 }
 
 .wrapper{
@@ -109,4 +110,62 @@ header ul li a{
 
 .school-inner-text{
 	padding: 0.4rem;
+}
+
+.image-holder{
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 20vw;
+	transition: all 0.2s;
+}
+
+.image-wrapper{
+	display: grid;
+	grid-template-columns: auto auto auto; 
+}
+
+.viewer-wrapper{
+	position: fixed;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100vh;
+	background-color: #5d5d5d85;
+}
+
+.viewer-category{
+	width:100%;
+	text-align: center;
+	background-color: var(--primary);
+	padding-top: 0.6rem;
+	padding-bottom: 0.6rem;
+}
+
+.viewer-image{
+	position: relative;
+	max-width: 100%;
+	max-height: 80vh;
+}
+
+.viewer-image-wrapper{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+	height: 100%;
+	width: 100%
+}
+
+
+@media screen and (orientation:portrait) {
+	.school-card{
+		width: 90%;
+	}
+	.image-holder{
+		height: 30vw;
+	}
+}
+
+@media screen and (orientation:landscape) {
+
 }
