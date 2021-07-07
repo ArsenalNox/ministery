@@ -11,7 +11,8 @@ $debug = false;
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0 "> -->
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<title>Просмотр школ</title>
 	<link rel="stylesheet" href="css/style.css">
 </head>
@@ -25,7 +26,20 @@ $debug = false;
 
 <section class="school-content">
 <?php
-$stm = $dtb->prepare("SELECT * FROM educational");
+
+if(isset($_GET['region']) && isset($_GET['region_name']) ){
+	$informMessage = "Показываются школы муниципалитета ".$_GET['region_name'];
+
+	$stm = $dtb->prepare("SELECT educational.*, munipal.name as 'rname' FROM educational LEFT JOIN munipal ON educational.region = munipal.id WHERE munipal.id = ? ");
+	$stm->bindParam(1, $_GET['region']);
+} else {
+	$informMessage = "Показываются все школы ";
+
+	$stm = $dtb->prepare("SELECT educational.*, munipal.name as 'rname' FROM educational LEFT JOIN munipal ON educational.region = munipal.id");
+}
+echo "<p class='school-card' style='padding: 1rem; text-align:center'> $informMessage </p>";
+
+
 if($stm->execute()){ //Выборка всех школ
 	if($stm->rowCount()>0){
 		/**
@@ -60,11 +74,12 @@ if($stm->execute()){ //Выборка всех школ
 		}
 
 		while($row = $stm->fetch(PDO::FETCH_ASSOC)){ //Генерация карточек школ
+
 			$echoedHTML.= "
 			<div class='school-card'>
-			<h4  class='school-inner-text'> ".$row['name']    ."</h4>
-			<p   class='school-inner-text'> ".$row['region']  ."</p>
-			<p> Занято мест: ".$row['factial_capacity']." </p> 
+			<h4  class='school-inner-text'> ".$row['name']    .", год постройки: ".$row['build_complete']."</h4>
+			<p   class='school-inner-text'> ".$row['rname']  .",  Учащихся: ".$row['factial_capacity']." </p> 
+			<p   class='school-inner-text'> ".$row['address']  ." </p> 
 			";
 		
 
@@ -95,7 +110,16 @@ if($stm->execute()){ //Выборка всех школ
 			$echoedHTML.="</div>";
 
 		
+			if( 
+				!(
+				$row['project_capacity'] === null ||
+				$row['second_shift'] 	 === null ||	
+				$row['bybus_count']  	 === null ||
+				$row['bybus_km']		 === null
+				)
+			){
 
+			
 
 			$echoedHTML.= "
 			<div class='school-content-wrapper'>
@@ -134,9 +158,11 @@ if($stm->execute()){ //Выборка всех школ
 				<p> Требуется ремонт сети водоснабжения:   ".$row['water_repair']." </p> 
 				<p> Требуется ремонт канализации: 		   ".$row['sewer_repair']." </p> 
 				
-			</div>";
+			</div> </div>";
+			}
 
-			$echoedHTML.='</div> </div>';
+
+			$echoedHTML.=' </div>';
 
 
 		}
@@ -168,12 +194,18 @@ if($stm->execute()){ //Выборка всех школ
 
 	var tmpTarget 
 
+	var currentDisplayedImage = null;
+	var currentImageSource    = null;
+
 	function changePhoto(elem, id){
 		document.getElementById('changing-'+id).src = elem.src
 		console.log(elem);
 	}
 
 	function createImageViewer(imageCollection){
+		currentImageSource = imageCollection
+
+
 		let displayedChild = imageCollection.getAttribute('currentImage');
 		if(imageCollection.children.length != 1){
 			if(displayedChild-1 < 0){
@@ -191,27 +223,101 @@ if($stm->execute()){ //Выборка всех школ
 		viewerWrapper.className = 'viewer-wrapper'
 		viewerWrapper.id = 'imgv'
 
+		let changePhotoButtonLeft = document.createElement('div')
+		changePhotoButtonLeft.className = 'change-button left-button'
+		changePhotoButtonLeft.innerHTML = '<p class="button-content"> < </p>'
+
+		let changePhotoButtonRight = document.createElement('div')
+		changePhotoButtonRight.className = 'change-button right-button'
+		changePhotoButtonRight.innerHTML = '<p class="button-content"> > </p>'
+
+
 		let categoryHeader = document.createElement('h2')
 		categoryHeader.className = 'viewer-category'
-		categoryHeader.innerText = imageCollection.getAttribute('categoryname')
-		viewerWrapper.append(categoryHeader)
+		categoryHeader.id 	     = 'cgh-1';
+		categoryHeader.innerHTML = imageCollection.getAttribute('categoryname') + " &nbsp; фотография: <span id='imgcounter'> " + (displayedChild+1) + "</span> из " + imageCollection.children.length 
+		
 
 		let imageWrapper = document.createElement('div')
 		imageWrapper.className = 'viewer-image-wrapper'
 
 		let viewedImage = document.createElement('img')
 		viewedImage.className = 'viewer-image'
+		viewedImage.id = 'vwimg-1'
 		viewedImage.src = imageCollection.children[displayedChild].src
-		imageWrapper.append(viewedImage)
-		viewerWrapper.append(imageWrapper)
 
+		currentDisplayedImage = displayedChild
+
+
+		viewerWrapper.append(categoryHeader)
+
+		imageWrapper.append(viewedImage)
+		
+		viewerWrapper.append(imageWrapper)
+		viewerWrapper.append(changePhotoButtonRight, changePhotoButtonLeft)
+		
 		document.body.append(viewerWrapper)
 		console.log('Created');
 	}
 
-	function processClick(target){
+	function changeDisplayedImage(direction){
+		switch(direction){
+			case 'left':
+				if( (currentDisplayedImage-1 > 0) || (currentDisplayedImage-1 == 0) ){
+					currentDisplayedImage-=1
+					document.getElementById("vwimg-1").src = currentImageSource.children[currentDisplayedImage].src
+				} else {
+					currentDisplayedImage = currentImageSource.children.length-1
+					document.getElementById("vwimg-1").src = currentImageSource.children[currentDisplayedImage].src
+				}
+				break;
+			
+			case 'right':
+				if( (currentDisplayedImage + 1 < currentImageSource.children.length-1) || (currentDisplayedImage + 1 == currentImageSource.children.length-1) ){
+					currentDisplayedImage += 1
+					document.getElementById("vwimg-1").src = currentImageSource.children[currentDisplayedImage].src
+				} else {
+					currentDisplayedImage = 0
+					document.getElementById("vwimg-1").src = currentImageSource.children[currentDisplayedImage].src
+				}
+				break;
+		}
+		currentImageSource.setAttribute('currentImage', currentDisplayedImage)
+		document.getElementById('imgcounter').innerText = currentDisplayedImage+1
+		chagneSmallDisplayImage(currentImageSource)
+	}	
 
-		if(target.classList.contains('viewer-wrapper') || target.classList.contains('viewer-image-wrapper')){
+	function chagneSmallDisplayImage(target){
+		let childAmount = target.children.length
+		let currentId = parseFloat(target.getAttribute('currentimage'))
+		target.style.backgroundImage = "url("+target.children[currentId].src+")"
+	}
+
+	function processClick(target){
+		if(target.classList.contains('left-button') && !(target.classList.contains('inner-button'))){
+
+			target.classList.add('active-button')
+			setTimeout(() =>{
+				target.classList.remove('active-button')
+			}, 200)
+			
+			changeDisplayedImage('left')
+			return 
+		}
+
+		if(target.classList.contains('right-button')){
+
+			target.classList.add('active-button')
+			setTimeout(() =>{
+				target.classList.remove('active-button')
+			}, 200)
+
+			changeDisplayedImage('right')
+			return
+		}
+
+
+		if(target.classList.contains('viewer-wrapper') || target.classList.contains('viewer-image-wrapper') || target.classList.contains('viewer-image')){
 			document.getElementById('imgv').remove()
 			isViewing = false
 			return
@@ -236,7 +342,7 @@ if($stm->execute()){ //Выборка всех школ
 				clearTimeout(longTouchTimeout)
 				detectingLongTouch = false;
 
-				setTimeout(() => {
+				setTimeout(() => { //Таймаут, после которого перестаёт отслеживаться двойное нажатие
 					detectingDoubleClick = false;
 				}, 250)
 				detectingDoubleClick = true;
@@ -257,19 +363,17 @@ if($stm->execute()){ //Выборка всех школ
 			}
 		}
 
-		
-
 	}
 
 
 
 	clickEventListener = document.addEventListener('click', (e) => {
 		let target = e.target
-		console.log(detectingLongTouch);
 		processClick(target)
 	})
 
 	document.addEventListener('touchstart',(e) => { 
+
 		tmpTarget = e.target
 		clearTimeout(longTouchTimeout)
 		longTouchTimeout = setTimeout(()=>{
