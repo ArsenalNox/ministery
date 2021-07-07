@@ -21,15 +21,19 @@ if(!isAuth()){
 		<div class='selection-wrapper'>
 			<h2>Выберите категорию</h2>
 			<hr>
-			<h3 onclick="showCategory(null)" class='category-select'>Все школы</h3>	
+			<h3 onclick="showCategory(null)" class='category-select'>Показать все школы</h3>	
 			<?php
-				$stm = $dtb->prepare("SELECT DISTINCT(munipal.name) as 'rname', munipal.id FROM educational LEFT JOIN munipal ON educational.region = munipal.id");
+				$stm = $dtb->prepare("SELECT * FROM munipal");
 				if($stm->execute()){
 					if($stm->rowCount()>0){
+						echo '<p class="category-select" style="cursor: auto"> Выберите муниципалитет </p> <select id="slc1">';
 						while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
 							$name = $row['rname'];
-							echo "<p class='category-select' onclick='showCategory(".$row['id'].", `$name` )'>".$row['rname']."</p>";
+							echo "<option value='".$row['id']."' >".$row['name']."</option>";
 						}
+						echo '</select>
+							<button onclick="showSchools()" > Показать </button>
+						';
 					}
 				} else {
 					echo "Неудалось получить список муниципалитетов";
@@ -47,6 +51,11 @@ if(!isAuth()){
 		} else {
 			window.location.href = '/ministery/schools?region='+category+'&region_name='+name
 		}
+	}
+
+	function showSchools(){
+		let regionId = document.getElementById('slc1').value
+		window.location.href = '/ministery/schools?region='+regionId
 	}
 </script>
 </html>

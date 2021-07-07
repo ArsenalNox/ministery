@@ -192,8 +192,10 @@ header ul li a{
 }
 
 .button-content{
-	display: none;
+	user-select: none;
 	font-size: 10rem;
+	opacity: 0.2;
+	z-index: -1;
 }
 
 @media screen and (orientation:portrait) {

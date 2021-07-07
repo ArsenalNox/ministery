@@ -27,8 +27,17 @@ $debug = false;
 <section class="school-content">
 <?php
 
-if(isset($_GET['region']) && isset($_GET['region_name']) ){
-	$informMessage = "Показываются школы муниципалитета ".$_GET['region_name'];
+if(isset($_GET['region'])){
+	$stm = $dtb->prepare("SELECT name FROM munipal WHERE id = ? ");
+	$stm->bindParam(1, $_GET['region']);
+	if($stm->execute()){
+		$row = $stm->fetch(PDO::FETCH_ASSOC);
+		$regionName = $row['name'];
+	} else {
+		$regionName = 'UNDEFINED';
+	}
+
+	$informMessage = "Показываются школы муниципалитета $regionName";
 
 	$stm = $dtb->prepare("SELECT educational.*, munipal.name as 'rname' FROM educational LEFT JOIN munipal ON educational.region = munipal.id WHERE munipal.id = ? ");
 	$stm->bindParam(1, $_GET['region']);
@@ -57,6 +66,8 @@ if($stm->execute()){ //Выборка всех школ
 			while($category_row = $category_select_stm->fetch(PDO::FETCH_ASSOC)){
 				$tmp['name'] = $category_row['name'];
 				$tmp['id'] = $category_row['id'];
+
+				if($tmp['name'] == 'Не подходит') continue;
 				$categories[] = $tmp;
 			}
 		} else {
@@ -77,9 +88,8 @@ if($stm->execute()){ //Выборка всех школ
 
 			$echoedHTML.= "
 			<div class='school-card'>
-			<h4  class='school-inner-text'> ".$row['name']    .", год постройки: ".$row['build_complete']."</h4>
-			<p   class='school-inner-text'> ".$row['rname']  .",  Учащихся: ".$row['factial_capacity']." </p> 
-			<p   class='school-inner-text'> ".$row['address']  ." </p> 
+			<h4  class='school-inner-text'> ".$row['name']    .", ".$row['build_complete']." г.</h4>
+			<p   class='school-inner-text'>  Проектная мощность: ".$row['project_capacity'].", учащихся: ".$row['factial_capacity']." </p> 
 			";
 		
 
@@ -224,12 +234,14 @@ if($stm->execute()){ //Выборка всех школ
 		viewerWrapper.id = 'imgv'
 
 		let changePhotoButtonLeft = document.createElement('div')
+		changePhotoButtonLeft.id = 'changePhotoL'
 		changePhotoButtonLeft.className = 'change-button left-button'
-		changePhotoButtonLeft.innerHTML = '<p class="button-content"> < </p>'
+		changePhotoButtonLeft.innerHTML = '<p class="button-content left-button"> < </p>'
 
 		let changePhotoButtonRight = document.createElement('div')
+		changePhotoButtonRight.id = 'changePhotoR'
 		changePhotoButtonRight.className = 'change-button right-button'
-		changePhotoButtonRight.innerHTML = '<p class="button-content"> > </p>'
+		changePhotoButtonRight.innerHTML = '<p class="button-content right-button"> > </p>'
 
 
 		let categoryHeader = document.createElement('h2')
@@ -295,10 +307,9 @@ if($stm->execute()){ //Выборка всех школ
 
 	function processClick(target){
 		if(target.classList.contains('left-button') && !(target.classList.contains('inner-button'))){
-
-			target.classList.add('active-button')
+			document.getElementById('changePhotoL').classList.add('active-button')
 			setTimeout(() =>{
-				target.classList.remove('active-button')
+				document.getElementById('changePhotoL').classList.remove('active-button')
 			}, 200)
 			
 			changeDisplayedImage('left')
@@ -306,10 +317,9 @@ if($stm->execute()){ //Выборка всех школ
 		}
 
 		if(target.classList.contains('right-button')){
-
-			target.classList.add('active-button')
+			document.getElementById('changePhotoR').classList.add('active-button')
 			setTimeout(() =>{
-				target.classList.remove('active-button')
+				document.getElementById('changePhotoR').classList.remove('active-button')
 			}, 200)
 
 			changeDisplayedImage('right')
