@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2021 at 09:43 PM
+-- Generation Time: Jul 08, 2021 at 03:52 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -77,7 +77,8 @@ INSERT INTO `educational` (`id`, `name`, `address`, `region`, `build_complete`, 
 (7, 'МБОУ \"Акбулакская  средняя общеобразовательная школа № 2 Акбулакского района Оренбургской области\" ', '461550,Оренбургская область, Акбулакский район, п.Акбулак, улица Оренбургская, дом 103, тел.8(35335)21952', 3, 1976, 620, 637, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8, 'МБОУ \"Лицей №1\" п. Тюльган', 'Оренбургская область, п. Тюльган, ул. М. Горького, д. 11, 835332 2-19-01', 33, 1993, 846, 477, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (9, 'МБОУ \"Белогорская основная общеобразовательная школа\" ', '461342 Оренбургская область Беляевский район п.Белогорский ул.Школьная д.6', 6, 1987, 180, 140, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 'МАОУ \"Средняя общеобразовательная школа № 7\" г. Гая Оренбургской области', '462635, Оренбургская область, г. Гай, ул. Декабристов, 10А', 9, 1988, 1179, 800, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(10, 'МАОУ \"Средняя общеобразовательная школа № 7\" г. Гая Оренбургской области', '462635, Оренбургская область, г. Гай, ул. Декабристов, 10А', 9, 1988, 1179, 800, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 'МОАУ \"СОШ № 31\"', 'г. Оренбург, ул Братская, д.8/1', 36, 1974, 850, 720, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -528,7 +529,30 @@ INSERT INTO `photos_edu` (`id`, `schid`, `category`, `path`) VALUES
 (473, 1, 7, 'img/1/11_111218.jpg'),
 (474, 1, 7, 'img/1/12_105358.jpg'),
 (475, 1, 7, 'img/1/12_105441.jpg'),
-(476, 1, 7, 'img/1/12_110929.jpg');
+(476, 1, 7, 'img/1/12_110929.jpg'),
+(523, 11, 1, 'img/11/01_1.jpg'),
+(524, 11, 1, 'img/11/02_2.jpg'),
+(525, 11, 9, 'img/11/02_3.jpg'),
+(526, 11, 1, 'img/11/03_3.jpg'),
+(527, 11, 9, 'img/11/03_4.jpg'),
+(528, 11, 9, 'img/11/03_5.jpg'),
+(529, 11, 2, 'img/11/04_6.jpg'),
+(530, 11, 2, 'img/11/05_7.jpg'),
+(531, 11, 3, 'img/11/06_10.jpg'),
+(532, 11, 3, 'img/11/06_8.jpg'),
+(533, 11, 3, 'img/11/06_9.jpg'),
+(534, 11, 8, 'img/11/07_11.jpg'),
+(535, 11, 6, 'img/11/08_12.jpg'),
+(536, 11, 6, 'img/11/08_13.jpg'),
+(537, 11, 5, 'img/11/10_14.jpg'),
+(538, 11, 4, 'img/11/11_15.JPG'),
+(539, 11, 7, 'img/11/12_16.jpg'),
+(540, 11, 7, 'img/11/12_17.jpg'),
+(541, 11, 7, 'img/11/12_18.jpg'),
+(542, 11, 7, 'img/11/12_19.jpg'),
+(543, 11, 7, 'img/11/12_20.jpg'),
+(544, 11, 7, 'img/11/12_21.jpg'),
+(545, 11, 7, 'img/11/13_22.jpg');
 
 -- --------------------------------------------------------
 
@@ -627,7 +651,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `educational`
 --
 ALTER TABLE `educational`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `munipal`
@@ -639,7 +663,7 @@ ALTER TABLE `munipal`
 -- AUTO_INCREMENT for table `photos_edu`
 --
 ALTER TABLE `photos_edu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=477;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=546;
 
 --
 -- AUTO_INCREMENT for table `photo_categories`
