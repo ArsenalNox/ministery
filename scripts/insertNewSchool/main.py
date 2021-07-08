@@ -1,11 +1,24 @@
 import glob
 import os
+import mysql.connector 
 
-schoolDirectory = '11'
+dbConn = mysql.connector.connect(
+	host = 'localhost',
+	user = 'root',
+	password = '',
+	database = 'min'
+)
+
+cursor = dbConn.cursor()
+
+schoolDirectory = '17'
 
 rootdir = "C:/xampp/htdocs/ministery/img/{}".format(schoolDirectory)
 
 for subdir, dirs, files in os.walk(rootdir):
 	print('iterating over file')
 	for file in files:
-		print("INSERT INTO `photos_edu`(`schid`, `category`, `path`) VALUES ({}, 1, 'img/{}/{}');".format(schoolDirectory, schoolDirectory, file))
+		sql = "INSERT INTO `photos_edu`(`schid`, `category`, `path`) VALUES ({}, 1, 'img/{}/{}');".format(schoolDirectory, schoolDirectory, file)
+		cursor.execute(sql)
+		print(sql)
+dbConn.commit()
