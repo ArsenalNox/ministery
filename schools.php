@@ -41,9 +41,11 @@ if(isset($_GET['region'])){
 
 	$stm = $dtb->prepare("SELECT educational.*, munipal.name as 'rname' FROM educational LEFT JOIN munipal ON educational.region = munipal.id WHERE munipal.id = ? ");
 	$stm->bindParam(1, $_GET['region']);
+
+	$allSchools = false;
 } else {
 	$informMessage = "Показываются все школы ";
-
+	$allSchools = true;
 	$stm = $dtb->prepare("SELECT educational.*, munipal.name as 'rname' FROM educational LEFT JOIN munipal ON educational.region = munipal.id");
 }
 echo "<p class='school-card' style='padding: 1rem; text-align:center'> $informMessage </p>";
@@ -85,10 +87,14 @@ if($stm->execute()){ //Выборка всех школ
 		}
 
 		while($row = $stm->fetch(PDO::FETCH_ASSOC)){ //Генерация карточек школ
-
+			if($allSchools) { 
+				$message = $row['rname'].', ';
+			} else {
+				$message = '';
+			}
 			$echoedHTML.= "
 			<div class='school-card'>
-			<h4  class='school-inner-text'> ".$row['name']    .", ".$row['build_complete']." г.</h4>
+			<h4  class='school-inner-text'> ".$row['name']    .", $message".$row['build_complete']." г.</h4>
 			<p   class='school-inner-text'>  Проектная мощность: ".$row['project_capacity'].", учащихся: ".$row['factial_capacity']." </p> 
 			";
 		
