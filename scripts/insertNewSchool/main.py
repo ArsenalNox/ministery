@@ -11,7 +11,7 @@ dbConn = mysql.connector.connect(
 
 cursor = dbConn.cursor()
 
-schoolDirectory = '47'
+schoolDirectory = '50'
 
 rootdir = "C:/xampp/htdocs/ministery/img/{}".format(schoolDirectory)
 
