@@ -21,7 +21,6 @@ if(!isAuth()){
 		<div class='selection-wrapper'>
 			<h2>Выберите категорию</h2>
 			<hr>
-			<h3 onclick="showCategory(null)" class='category-select'>Показать все школы</h3>	
 			<?php
 				$stm = $dtb->prepare("SELECT * FROM munipal");
 				if($stm->execute()){
