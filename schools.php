@@ -102,7 +102,11 @@ if($stm->execute()){ //Выборка всех школ
 			if($debug) echo "<br>";
 			$echoedHTML .="<div class='image-wrapper'> ";
 			foreach ($categories as $category){ //Выбор фотографий школы по каждой категории 
-				$photos_stm = $dtb->prepare("SELECT * FROM photos_edu WHERE schid = ? AND category = ?");
+				if($category['id'] == 9){
+					$photos_stm = $dtb->prepare("SELECT * FROM photos_edu WHERE schid = ? AND (category = ? OR isDefect = 1) ");
+				} else {
+					$photos_stm = $dtb->prepare("SELECT * FROM photos_edu WHERE schid = ? AND category = ?");
+				}
 				$photos_stm->bindParam(1, $row['id']);
 				$photos_stm->bindParam(2, $category['id']);
 				if($photos_stm->execute()){ if($photos_stm->rowCount()>0){
