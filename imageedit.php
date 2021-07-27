@@ -1,3 +1,10 @@
+<?php
+require_once 'dtb/dtb.php';
+require_once 'php/auth.php';
+if(!isAuth()){
+	header("Location: /ministery/index");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

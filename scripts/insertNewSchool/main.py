@@ -7,12 +7,12 @@ dbConn = mysql.connector.connect(
 	password = '',
 	database = 'min'
 )
-
 cursor = dbConn.cursor()
 
-schoolDirectory = '91'
+schoolDirectory = '104'
 
 rootdir = "C:/xampp/htdocs/ministery/img/{}".format(schoolDirectory)
+
 categories_needed_count = 9
 current_categories = []
 categories = {
@@ -27,6 +27,12 @@ categories = {
 	"9": "9"
 }
 
+allowed_extensions = [
+	'jpg',
+	'jpeg',
+	'png'
+]
+
 iterator = 0
 
 for subdir, dirs, files in os.walk(rootdir):
@@ -39,11 +45,16 @@ for subdir, dirs, files in os.walk(rootdir):
 		elif '-' in file:
 			category = file.split('-')[0]
 		
+		extension = file.split('.')[1].lower()
+		if extension not in allowed_extensions:
+			print('File {} has forbidden extension ("{}")'.format(file, extension))
+			continue
 		
 		if ( int(category) < 0) or ( int(category) > 9): 		
 			category = 1
-		if category not in current_categories:
-			current_categories.append(category)
+
+		if int(category) not in current_categories:
+			current_categories.append(int(category))
 
 
 		sql = "INSERT INTO `photos_edu`(`schid`, `category`, `path`) VALUES ({}, {}, 'img/{}/{}');".format(schoolDirectory, categories[str(int(category))], schoolDirectory, file)
