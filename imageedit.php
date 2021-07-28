@@ -81,7 +81,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$stm->bindParam(1, $_GET['id']);
 	if($stm->execute()){ 
 		//Составление формы 
-		echo '<form method="POST" action="#"> ';
+		echo '
+		<p> Кол-во фотографий: '.$stm->rowCount().' </p>
+		<form method="POST" action="#"> 
+		';
 		while($row = $stm->fetch(PDO::FETCH_ASSOC)){
 			echo "
 				<hr>
