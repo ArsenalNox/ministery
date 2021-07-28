@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2021 at 11:40 AM
+-- Generation Time: Jul 28, 2021 at 12:37 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.26
 
@@ -3302,54 +3302,6 @@ INSERT INTO `photos_edu` (`id`, `schid`, `category`, `isDefect`, `path`) VALUES
 (4150, 98, 9, NULL, 'img/98/09_5AADB0E8-FAD8-4B33-AE8A-F9DAA8617106.jpeg'),
 (4151, 98, 9, NULL, 'img/98/09_66057A47-0F68-490F-A66B-26D0496203F6.jpeg'),
 (4152, 98, 9, NULL, 'img/98/09_8AD55567-8F12-4396-B4C4-72ECDC741E9C.jpeg'),
-(4153, 99, 1, NULL, 'img/99/01_ P7190364.JPG'),
-(4154, 99, 1, NULL, 'img/99/01_ Р7190363.JPG'),
-(4155, 99, 2, NULL, 'img/99/02 _P7190369.JPG'),
-(4156, 99, 4, NULL, 'img/99/03 _ P7190375.JPG'),
-(4157, 99, 4, NULL, 'img/99/03 _ P7190378.JPG'),
-(4158, 99, 4, NULL, 'img/99/03 _P7190384.JPG'),
-(4159, 99, 4, NULL, 'img/99/03 _P7190410.JPG'),
-(4160, 99, 4, NULL, 'img/99/03_  P7190370.JPG'),
-(4161, 99, 3, NULL, 'img/99/04_ P7190387.JPG'),
-(4162, 99, 6, NULL, 'img/99/05_ P7190371.JPG'),
-(4163, 99, 6, NULL, 'img/99/05_ P7190372.JPG'),
-(4164, 99, 5, NULL, 'img/99/06_ P7190382.JPG'),
-(4165, 99, 7, NULL, 'img/99/07_ P7190374.JPG'),
-(4166, 99, 7, NULL, 'img/99/07_ P7190379.JPG'),
-(4167, 99, 7, NULL, 'img/99/07_ P7190380.JPG'),
-(4168, 99, 7, NULL, 'img/99/07_ P7190381.JPG'),
-(4169, 99, 7, NULL, 'img/99/07_ P7190385.JPG'),
-(4170, 99, 7, NULL, 'img/99/07_ P7190409.JPG'),
-(4171, 99, 8, NULL, 'img/99/08 _P7190397.JPG'),
-(4172, 99, 8, NULL, 'img/99/08 _P7190399.JPG'),
-(4173, 99, 8, NULL, 'img/99/08_ P7190398.JPG'),
-(4174, 99, 8, NULL, 'img/99/08_ P7190400.JPG'),
-(4175, 99, 8, NULL, 'img/99/08_ P7190401.JPG'),
-(4176, 99, 8, NULL, 'img/99/08_ P7190402.JPG'),
-(4177, 99, 8, NULL, 'img/99/08_ P7190403.JPG'),
-(4178, 99, 8, NULL, 'img/99/08_ P7190404.JPG'),
-(4179, 99, 9, NULL, 'img/99/09_  P7190392.JPG'),
-(4180, 99, 9, NULL, 'img/99/09_ P7190365.JPG'),
-(4181, 99, 9, NULL, 'img/99/09_ P7190366.JPG'),
-(4182, 99, 9, NULL, 'img/99/09_ P7190367.JPG'),
-(4183, 99, 9, NULL, 'img/99/09_ P7190368.JPG'),
-(4184, 99, 9, NULL, 'img/99/09_ P7190376.JPG'),
-(4185, 99, 9, NULL, 'img/99/09_ P7190377.JPG'),
-(4186, 99, 9, NULL, 'img/99/09_ P7190383.JPG'),
-(4187, 99, 9, NULL, 'img/99/09_ P7190386.JPG'),
-(4188, 99, 9, NULL, 'img/99/09_ P7190388.JPG'),
-(4189, 99, 9, NULL, 'img/99/09_ P7190389.JPG'),
-(4190, 99, 9, NULL, 'img/99/09_ P7190391.JPG'),
-(4191, 99, 9, NULL, 'img/99/09_ P7190393.JPG'),
-(4192, 99, 9, NULL, 'img/99/09_ P7190395.JPG'),
-(4193, 99, 9, NULL, 'img/99/09_ P7190396.JPG'),
-(4194, 99, 9, NULL, 'img/99/09_ P7190405.JPG'),
-(4195, 99, 9, NULL, 'img/99/09_ P7190406.JPG'),
-(4196, 99, 9, NULL, 'img/99/09_ P7190407.JPG'),
-(4197, 99, 9, NULL, 'img/99/09_ P7190408.JPG'),
-(4198, 99, 9, NULL, 'img/99/09_ P7190411.JPG'),
-(4199, 99, 9, NULL, 'img/99/09_P7190390.JPG'),
-(4200, 99, 9, NULL, 'img/99/09_P7190394.JPG'),
 (4235, 76, 1, NULL, 'img/76/01_01.jpg'),
 (4236, 76, 1, NULL, 'img/76/01_02.jpg'),
 (4237, 76, 1, NULL, 'img/76/01_03.jpg'),
@@ -3989,8 +3941,7 @@ INSERT INTO `photos_edu` (`id`, `schid`, `category`, `isDefect`, `path`) VALUES
 (4966, 114, 2, NULL, 'img/114/02_02.jpg'),
 (4967, 114, 2, NULL, 'img/114/02_03.jpg'),
 (4968, 114, 2, NULL, 'img/114/02_04.jpg'),
-(4969, 114, 4, NULL, 'img/114/03_01.jpg');
-INSERT INTO `photos_edu` (`id`, `schid`, `category`, `isDefect`, `path`) VALUES
+(4969, 114, 4, NULL, 'img/114/03_01.jpg'),
 (4970, 114, 4, NULL, 'img/114/03_02.jpg'),
 (4971, 114, 4, NULL, 'img/114/03_03.jpg'),
 (4972, 114, 4, NULL, 'img/114/03_04.jpg'),
@@ -4045,7 +3996,8 @@ INSERT INTO `photos_edu` (`id`, `schid`, `category`, `isDefect`, `path`) VALUES
 (5021, 115, 4, NULL, 'img/115/03_7.jpg'),
 (5022, 115, 4, NULL, 'img/115/03_8.jpg'),
 (5023, 115, 4, NULL, 'img/115/03_9.jpg'),
-(5024, 115, 3, NULL, 'img/115/04_1.jpg'),
+(5024, 115, 3, NULL, 'img/115/04_1.jpg');
+INSERT INTO `photos_edu` (`id`, `schid`, `category`, `isDefect`, `path`) VALUES
 (5025, 115, 3, NULL, 'img/115/04_10.jpg'),
 (5026, 115, 3, NULL, 'img/115/04_11.jpg'),
 (5027, 115, 3, NULL, 'img/115/04_12.jpg'),
@@ -4546,7 +4498,55 @@ INSERT INTO `photos_edu` (`id`, `schid`, `category`, `isDefect`, `path`) VALUES
 (5522, 125, 5, NULL, 'img/125/06_68.jpg'),
 (5523, 125, 7, NULL, 'img/125/07_67.jpg'),
 (5524, 125, 7, NULL, 'img/125/07_68.jpg'),
-(5525, 125, 8, NULL, 'img/125/08_68.jpg');
+(5525, 125, 8, NULL, 'img/125/08_68.jpg'),
+(5622, 99, 1, NULL, 'img/99/01_P7190364.JPG'),
+(5623, 99, 1, NULL, 'img/99/01_Р7190363.JPG'),
+(5624, 99, 2, NULL, 'img/99/02_P7190369.JPG'),
+(5625, 99, 4, NULL, 'img/99/03_P7190370.JPG'),
+(5626, 99, 4, NULL, 'img/99/03_P7190375.JPG'),
+(5627, 99, 4, NULL, 'img/99/03_P7190378.JPG'),
+(5628, 99, 4, NULL, 'img/99/03_P7190384.JPG'),
+(5629, 99, 4, NULL, 'img/99/03_P7190410.JPG'),
+(5630, 99, 3, NULL, 'img/99/04_P7190387.JPG'),
+(5631, 99, 6, NULL, 'img/99/05_P7190371.JPG'),
+(5632, 99, 6, NULL, 'img/99/05_P7190372.JPG'),
+(5633, 99, 5, NULL, 'img/99/06_P7190382.JPG'),
+(5634, 99, 7, NULL, 'img/99/07_P7190374.JPG'),
+(5635, 99, 7, NULL, 'img/99/07_P7190379.JPG'),
+(5636, 99, 7, NULL, 'img/99/07_P7190380.JPG'),
+(5637, 99, 7, NULL, 'img/99/07_P7190381.JPG'),
+(5638, 99, 7, NULL, 'img/99/07_P7190385.JPG'),
+(5639, 99, 7, NULL, 'img/99/07_P7190409.JPG'),
+(5640, 99, 8, NULL, 'img/99/08_P7190397.JPG'),
+(5641, 99, 8, NULL, 'img/99/08_P7190398.JPG'),
+(5642, 99, 8, NULL, 'img/99/08_P7190399.JPG'),
+(5643, 99, 8, NULL, 'img/99/08_P7190400.JPG'),
+(5644, 99, 8, NULL, 'img/99/08_P7190401.JPG'),
+(5645, 99, 8, NULL, 'img/99/08_P7190402.JPG'),
+(5646, 99, 8, NULL, 'img/99/08_P7190403.JPG'),
+(5647, 99, 8, NULL, 'img/99/08_P7190404.JPG'),
+(5648, 99, 9, NULL, 'img/99/09_7190366.JPG'),
+(5649, 99, 9, NULL, 'img/99/09_P7190365.JPG'),
+(5650, 99, 9, NULL, 'img/99/09_P7190367.JPG'),
+(5651, 99, 9, NULL, 'img/99/09_P7190368.JPG'),
+(5652, 99, 9, NULL, 'img/99/09_P7190376.JPG'),
+(5653, 99, 9, NULL, 'img/99/09_P7190377.JPG'),
+(5654, 99, 9, NULL, 'img/99/09_P7190383.JPG'),
+(5655, 99, 9, NULL, 'img/99/09_P7190386.JPG'),
+(5656, 99, 9, NULL, 'img/99/09_P7190388.JPG'),
+(5657, 99, 9, NULL, 'img/99/09_P7190389.JPG'),
+(5658, 99, 9, NULL, 'img/99/09_P7190390.JPG'),
+(5659, 99, 9, NULL, 'img/99/09_P7190391.JPG'),
+(5660, 99, 9, NULL, 'img/99/09_P7190392.JPG'),
+(5661, 99, 9, NULL, 'img/99/09_P7190393.JPG'),
+(5662, 99, 9, NULL, 'img/99/09_P7190394.JPG'),
+(5663, 99, 9, NULL, 'img/99/09_P7190395.JPG'),
+(5664, 99, 9, NULL, 'img/99/09_P7190396.JPG'),
+(5665, 99, 9, NULL, 'img/99/09_P7190405.JPG'),
+(5666, 99, 9, NULL, 'img/99/09_P7190406.JPG'),
+(5667, 99, 9, NULL, 'img/99/09_P7190407.JPG'),
+(5668, 99, 9, NULL, 'img/99/09_P7190408.JPG'),
+(5669, 99, 9, NULL, 'img/99/09_P7190411.JPG');
 
 -- --------------------------------------------------------
 
@@ -4657,7 +4657,7 @@ ALTER TABLE `munipal`
 -- AUTO_INCREMENT for table `photos_edu`
 --
 ALTER TABLE `photos_edu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5526;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5670;
 
 --
 -- AUTO_INCREMENT for table `photo_categories`
