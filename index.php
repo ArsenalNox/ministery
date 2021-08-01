@@ -22,6 +22,11 @@ if(!isAuth()){
 			<h2>Выберите категорию</h2>
 			<hr>
 			<?php
+				if(!$admin){
+					if($user_region !== NULL){
+						header("Location: /ministery/schools?region=$user_region");
+					}
+				}
 				$stm = $dtb->prepare("SELECT * FROM munipal");
 				if($stm->execute()){
 					if($stm->rowCount()>0){
