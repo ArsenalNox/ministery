@@ -1,6 +1,10 @@
 <?php
 require_once 'dtb/dtb.php';
 require_once 'php/auth.php';
+
+if(isAuth()){
+	header('Location: /ministery/index');
+}
 $errors=[];
 $error = false;
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -36,8 +40,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 					$row = $stm->fetch(PDO::FETCH_ASSOC);
 					if(password_verify($_POST['pwd'], $row['pwd'])){
-						echo 'ACCESS GRANTED';
-						$accessToken = 'testAccessToken'. uniqid();
+						if($row['token'] == NULL || $row['token'] == 0){
+							$token = md5(uniqid().$row['uid']);
+							$dtb->query("UPDATE `users` SET `token` = '$token' WHERE `id` = '".$row['id']."'");
+						} else {
+							$token = $row['token'];
+						}
+						$accessToken = $token;
 						setcookie('access', $accessToken, time()+3600);
 						header("Location: /ministery/index");
 					} else {

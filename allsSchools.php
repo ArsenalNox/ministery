@@ -1,7 +1,7 @@
 <?php
 require_once 'dtb/dtb.php';
 require_once 'php/auth.php';
-if(!isAuth()){
+if(!isAuth() || !$admin){
 	header("Location: /ministery/index");
 }
 
