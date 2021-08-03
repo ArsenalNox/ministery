@@ -196,6 +196,7 @@ header ul li a{
 	font-size: 10rem;
 	opacity: 0.2;
 	z-index: -1;
+	user-select: none;
 }
 
 @media screen and (orientation:portrait) {
