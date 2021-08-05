@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Авг 03 2021 г., 20:13
--- Версия сервера: 10.4.19-MariaDB
--- Версия PHP: 8.0.7
+-- Время создания: Авг 05 2021 г., 13:22
+-- Версия сервера: 10.4.20-MariaDB
+-- Версия PHP: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -211,7 +211,11 @@ INSERT INTO `educational` (`id`, `name`, `address`, `region`, `build_complete`, 
 (151, 'МБОУ \"Илекская СОШ №2\"', NULL, 12, '1977', 500, 636, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (152, 'МБОУ \"Студеновская\" СОШ', NULL, 12, '1969', 199, 42, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (153, 'МБОУ \"Красноярская СОШ\"', NULL, 12, '1968', 380, 102, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(154, 'МБОУ \"Димитровская СОШ\"', NULL, 12, '1975', 350, 115, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(154, 'МБОУ \"Димитровская СОШ\"', NULL, 12, '1975', 350, 115, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(155, 'МБОУ «Емельяновская СОШ»', NULL, 17, '1980', 250, 32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(156, 'МОБУ \"СОШ №7\"', NULL, 29, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(157, 'МОАУ \"СОШ №4 г. Соль-Илецка\"', NULL, 29, '1972', 920, 957, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(158, 'МОБУ Линёвская СОШ', NULL, 29, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5316,7 +5320,93 @@ INSERT INTO `photos_edu` (`id`, `schid`, `category`, `isDefect`, `path`, `thumb`
 (6675, 133, 9, NULL, 'img/133/09_6.jpeg', 'thumb/133/09_6.jpeg'),
 (6676, 133, 9, NULL, 'img/133/09_7.jpeg', 'thumb/133/09_7.jpeg'),
 (6677, 133, 9, NULL, 'img/133/09_8.jpeg', 'thumb/133/09_8.jpeg'),
-(6678, 133, 9, NULL, 'img/133/09_9.jpeg', 'thumb/133/09_9.jpeg');
+(6678, 133, 9, NULL, 'img/133/09_9.jpeg', 'thumb/133/09_9.jpeg'),
+(6679, 155, 1, NULL, 'img/155/01_356.jpg', 'thumb/155/01_356.jpg'),
+(6680, 155, 1, NULL, 'img/155/01_357.jpg', 'thumb/155/01_357.jpg'),
+(6681, 155, 2, NULL, 'img/155/02_358.jpg', 'thumb/155/02_358.jpg'),
+(6682, 155, 4, NULL, 'img/155/03_359.jpg', 'thumb/155/03_359.jpg'),
+(6683, 155, 4, NULL, 'img/155/03_360.jpg', 'thumb/155/03_360.jpg'),
+(6684, 155, 3, NULL, 'img/155/04_361.jpg', 'thumb/155/04_361.jpg'),
+(6685, 155, 3, NULL, 'img/155/04_362.jpg', 'thumb/155/04_362.jpg'),
+(6686, 155, 6, NULL, 'img/155/05_363.jpg', 'thumb/155/05_363.jpg'),
+(6687, 155, 6, NULL, 'img/155/05_364.jpg', 'thumb/155/05_364.jpg'),
+(6688, 155, 6, NULL, 'img/155/05_365.jpg', 'thumb/155/05_365.jpg'),
+(6689, 155, 5, NULL, 'img/155/06_366.jpg', 'thumb/155/06_366.jpg'),
+(6690, 155, 5, NULL, 'img/155/06_367.jpg', 'thumb/155/06_367.jpg'),
+(6691, 155, 7, NULL, 'img/155/07_3.jpg', 'thumb/155/07_3.jpg'),
+(6692, 155, 7, NULL, 'img/155/07_36.jpg', 'thumb/155/07_36.jpg'),
+(6693, 155, 7, NULL, 'img/155/07_368.jpg', 'thumb/155/07_368.jpg'),
+(6694, 155, 8, NULL, 'img/155/08_369.jpg', 'thumb/155/08_369.jpg'),
+(6695, 155, 8, NULL, 'img/155/08_37.jpg', 'thumb/155/08_37.jpg'),
+(6696, 155, 8, NULL, 'img/155/08_370.jpg', 'thumb/155/08_370.jpg'),
+(6697, 155, 9, NULL, 'img/155/09_3.jpg', 'thumb/155/09_3.jpg'),
+(6698, 155, 9, NULL, 'img/155/09_35.jpg', 'thumb/155/09_35.jpg'),
+(6699, 155, 9, NULL, 'img/155/09_371.jpg', 'thumb/155/09_371.jpg'),
+(6700, 155, 9, NULL, 'img/155/09_372.jpg', 'thumb/155/09_372.jpg'),
+(6701, 155, 9, NULL, 'img/155/09_373.jpg', 'thumb/155/09_373.jpg'),
+(6702, 155, 9, NULL, 'img/155/09_374.jpg', 'thumb/155/09_374.jpg'),
+(6703, 155, 9, NULL, 'img/155/09_375.jpg', 'thumb/155/09_375.jpg'),
+(6704, 156, 1, NULL, 'img/156/01_365.jpg', 'thumb/156/01_365.jpg'),
+(6705, 156, 2, NULL, 'img/156/02_366.jpg', 'thumb/156/02_366.jpg'),
+(6706, 156, 3, NULL, 'img/156/04_357.jpg', 'thumb/156/04_357.jpg'),
+(6707, 156, 6, NULL, 'img/156/05_356.jpg', 'thumb/156/05_356.jpg'),
+(6708, 156, 6, NULL, 'img/156/05_357.jpg', 'thumb/156/05_357.jpg'),
+(6709, 156, 7, NULL, 'img/156/07_358.jpg', 'thumb/156/07_358.jpg'),
+(6710, 156, 8, NULL, 'img/156/08_363.jpg', 'thumb/156/08_363.jpg'),
+(6711, 156, 9, NULL, 'img/156/09_361.jpg', 'thumb/156/09_361.jpg'),
+(6712, 156, 9, NULL, 'img/156/09_362.jpg', 'thumb/156/09_362.jpg'),
+(6713, 156, 1, NULL, 'img/156/10_359.jpg', 'thumb/156/10_359.jpg'),
+(6714, 156, 1, NULL, 'img/156/10_360.jpg', 'thumb/156/10_360.jpg'),
+(6715, 156, 1, NULL, 'img/156/11_367.jpg', 'thumb/156/11_367.jpg'),
+(6716, 156, 1, NULL, 'img/156/11_368.jpg', 'thumb/156/11_368.jpg'),
+(6717, 156, 1, NULL, 'img/156/12_364.jpg', 'thumb/156/12_364.jpg'),
+(6718, 156, 1, NULL, 'img/156/12_365.jpg', 'thumb/156/12_365.jpg'),
+(6719, 156, 1, NULL, 'img/156/12_366.jpg', 'thumb/156/12_366.jpg'),
+(6720, 157, 1, NULL, 'img/157/01_01.JPG', 'thumb/157/01_01.JPG'),
+(6721, 157, 1, NULL, 'img/157/01_02.jpg', 'thumb/157/01_02.jpg'),
+(6722, 157, 1, NULL, 'img/157/01_03.JPG', 'thumb/157/01_03.JPG'),
+(6723, 157, 2, NULL, 'img/157/02_04.jpeg', 'thumb/157/02_04.jpeg'),
+(6724, 157, 4, NULL, 'img/157/03_05.jpeg', 'thumb/157/03_05.jpeg'),
+(6725, 157, 4, NULL, 'img/157/03_06.jpeg', 'thumb/157/03_06.jpeg'),
+(6726, 157, 3, NULL, 'img/157/04_07.jpeg', 'thumb/157/04_07.jpeg'),
+(6727, 157, 6, NULL, 'img/157/05_08.jpeg', 'thumb/157/05_08.jpeg'),
+(6728, 157, 5, NULL, 'img/157/06_09.jpeg', 'thumb/157/06_09.jpeg'),
+(6729, 157, 5, NULL, 'img/157/06_10.jpeg', 'thumb/157/06_10.jpeg'),
+(6730, 157, 7, NULL, 'img/157/07_11.jpeg', 'thumb/157/07_11.jpeg'),
+(6731, 157, 7, NULL, 'img/157/07_12.jpeg', 'thumb/157/07_12.jpeg'),
+(6732, 157, 8, NULL, 'img/157/08_13.jpeg', 'thumb/157/08_13.jpeg'),
+(6733, 157, 8, NULL, 'img/157/08_14.jpeg', 'thumb/157/08_14.jpeg'),
+(6734, 157, 9, NULL, 'img/157/09_15.jpeg', 'thumb/157/09_15.jpeg'),
+(6735, 157, 9, NULL, 'img/157/09_16.jpeg', 'thumb/157/09_16.jpeg'),
+(6736, 157, 1, NULL, 'img/157/10_17.jpeg', 'thumb/157/10_17.jpeg'),
+(6737, 157, 1, NULL, 'img/157/10_18.jpeg', 'thumb/157/10_18.jpeg'),
+(6738, 157, 1, NULL, 'img/157/10_19.jpeg', 'thumb/157/10_19.jpeg'),
+(6739, 157, 1, NULL, 'img/157/11_20.jpeg', 'thumb/157/11_20.jpeg'),
+(6740, 157, 1, NULL, 'img/157/11_21.jpeg', 'thumb/157/11_21.jpeg'),
+(6741, 157, 1, NULL, 'img/157/11_28.jpeg', 'thumb/157/11_28.jpeg'),
+(6742, 157, 1, NULL, 'img/157/12_22.jpeg', 'thumb/157/12_22.jpeg'),
+(6743, 157, 1, NULL, 'img/157/12_23.jpeg', 'thumb/157/12_23.jpeg'),
+(6744, 157, 1, NULL, 'img/157/12_24.jpeg', 'thumb/157/12_24.jpeg'),
+(6745, 157, 1, NULL, 'img/157/12_25.jpeg', 'thumb/157/12_25.jpeg'),
+(6746, 157, 1, NULL, 'img/157/12_26.jpeg', 'thumb/157/12_26.jpeg'),
+(6747, 157, 1, NULL, 'img/157/13_27.jpeg', 'thumb/157/13_27.jpeg'),
+(6748, 157, 1, NULL, 'img/157/13_29.jpeg', 'thumb/157/13_29.jpeg'),
+(6749, 158, 1, NULL, 'img/158/01_01.jpg.jpg', 'thumb/158/01_01.jpg.jpg'),
+(6750, 158, 1, NULL, 'img/158/02_01.jpg.jpg', 'thumb/158/02_01.jpg.jpg'),
+(6751, 158, 2, NULL, 'img/158/03_01.jpg.jpg', 'thumb/158/03_01.jpg.jpg'),
+(6752, 158, 2, NULL, 'img/158/04_01.jpg.jpg', 'thumb/158/04_01.jpg.jpg'),
+(6753, 158, 2, NULL, 'img/158/05_01.jpg.jpg', 'thumb/158/05_01.jpg.jpg'),
+(6754, 158, 3, NULL, 'img/158/06_06.jpg.jpg', 'thumb/158/06_06.jpg.jpg'),
+(6755, 158, 6, NULL, 'img/158/08_08.jpg.jpg', 'thumb/158/08_08.jpg.jpg'),
+(6756, 158, 6, NULL, 'img/158/09_01.jpg.jpg', 'thumb/158/09_01.jpg.jpg'),
+(6757, 158, 5, NULL, 'img/158/10_01.jpg.jpg', 'thumb/158/10_01.jpg.jpg'),
+(6758, 158, 5, NULL, 'img/158/10_02.jpg.jpg', 'thumb/158/10_02.jpg.jpg'),
+(6759, 158, 5, NULL, 'img/158/10_03.jpg.jpg', 'thumb/158/10_03.jpg.jpg'),
+(6760, 158, 4, NULL, 'img/158/11_01.jpg.jpg', 'thumb/158/11_01.jpg.jpg'),
+(6761, 158, 7, NULL, 'img/158/12_01.jpg.jpg', 'thumb/158/12_01.jpg.jpg'),
+(6762, 158, 7, NULL, 'img/158/12_02.jpg.jpg', 'thumb/158/12_02.jpg.jpg'),
+(6763, 158, 7, NULL, 'img/158/12_03.jpg.jpg', 'thumb/158/12_03.jpg.jpg'),
+(6764, 158, 7, NULL, 'img/158/12_04.jpg.jpg', 'thumb/158/12_04.jpg.jpg');
 
 -- --------------------------------------------------------
 
@@ -5337,7 +5427,7 @@ INSERT INTO `photo_categories` (`id`, `name`) VALUES
 (1, 'фасад, таблица с названием'),
 (2, 'входная группа, фое, гардероб'),
 (3, 'лест. пролёты, площадка последних этажей '),
-(4, 'корридоры'),
+(4, 'коридоры'),
 (5, 'спорт. зал, раздевалки, душевые'),
 (6, 'пищеблок'),
 (7, 'классные кабинеты, мастерские, медблок'),
@@ -5463,7 +5553,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `educational`
 --
 ALTER TABLE `educational`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT для таблицы `munipal`
@@ -5475,7 +5565,7 @@ ALTER TABLE `munipal`
 -- AUTO_INCREMENT для таблицы `photos_edu`
 --
 ALTER TABLE `photos_edu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6679;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6765;
 
 --
 -- AUTO_INCREMENT для таблицы `photo_categories`
