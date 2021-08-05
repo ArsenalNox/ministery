@@ -4,8 +4,10 @@ require_once 'php/auth.php';
 if(!isAuth()){
 	header("Location: /ministery/index");
 }
+
 $debug = false;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,37 +21,51 @@ $debug = false;
 <body>
 	<header>
 		<ul>
-			<li> <a href='/ministery/index' > Назад </a></li>
+            <li> <a href='/ministery/index' > Назад </a></li>
 			<li> <a href='/ministery/logout'> Выйти </a> </li>
 		</ul>
 	</header>
-
+<img src='loading-gif-png-5.gif' id='ldg' style="display: none">
 <section class="school-content">
 <?php
 
 if(isset($_GET['region'])){
+    $regionerror=false;
 	$stm = $dtb->prepare("SELECT name FROM munipal WHERE id = ? ");
 	$stm->bindParam(1, $_GET['region']);
-	if($stm->execute()){
-		$row = $stm->fetch(PDO::FETCH_ASSOC);
-		$regionName = $row['name'];
+    if($stm->execute()){
+        if($stm->rowCount() > 0){
+            $row = $stm->fetch(PDO::FETCH_ASSOC);
+            $regionName = $row['name'];
+        } else {
+            $regionName = 'Неправильный код региона';
+            $regionerror = true;
+        }
+
 	} else {
-		$regionName = 'UNDEFINED';
+        $regionName = 'UNDEFINED';
+        $regionerror = true;
 	}
-
-	$informMessage = "Показываются школы муниципалитета $regionName";
-
+    
+    if(!$regionerror){
+        $informMessage = "Показываются школы муниципалитета $regionName";
+    } 
+    
 	$stm = $dtb->prepare("SELECT educational.*, munipal.name as 'rname' FROM educational LEFT JOIN munipal ON educational.region = munipal.id WHERE munipal.id = ? ");
 	$stm->bindParam(1, $_GET['region']);
-
+    
 	$allSchools = false;
 } else {
 	$informMessage = "Показываются все школы ";
 	$allSchools = true;
 	$stm = $dtb->prepare("SELECT educational.*, munipal.name as 'rname' FROM educational LEFT JOIN munipal ON educational.region = munipal.id");
 }
-echo "<p class='school-card' style='padding: 1rem; text-align:center'> $informMessage </p>";
 
+if(!$regionerror){
+    echo "<p class='school-card' style='padding: 1rem; text-align:center'> $informMessage </p>";
+} else {
+    die( "<p class='school-card' style='padding: 1rem; text-align:center'> Произошла ошибка при поиске по муниципалитету: неправильно указан муниципалитет </p>" );
+}
 
 if($stm->execute()){ //Выборка всех школ
 	if($stm->rowCount()>0){
@@ -73,37 +89,41 @@ if($stm->execute()){ //Выборка всех школ
 				$categories[] = $tmp;
 			}
 		} else {
-			if($debug){ // -------------------------------- 
+			if($debug){
 				echo "<pre>";
 				print_r($category_select_stm->errorInfo());
 				echo "</pre>";
 			}
 		}
 		
-		if($debug){// --------------------------------
+		if($debug){
 			echo "<pre>";
 			print_r($categories);
 			echo "</pre>";
 		}
 
 		while($row = $stm->fetch(PDO::FETCH_ASSOC)){ //Генерация карточек школ
-			if($allSchools) { 
+
+			if($allSchools) { //Если показываются все школы, писать муниципалитет, чтобы не запутаться
 				$message = $row['rname'].', ';
 			} else {
 				$message = '';
-			}
+            }
+
+            //верхняя плашка 
 			$echoedHTML.= "
 			<div class='school-card'>
-			<h4  class='school-inner-text'> ".$row['name']    .", $message".$row['build_complete']." г.</h4>
+			<h4  class='school-inner-text'> ".$row['name'].", $message".$row['build_complete']." г.</h4>
 			<p   class='school-inner-text'>  Проектная мощность: ".$row['project_capacity'].", учащихся: ".$row['factial_capacity']." </p> 
 			";
 		
 
-			if($debug) echo "<br>";
-			$echoedHTML .="<div class='image-wrapper'> ";
+            if($debug) echo "<br>";
+
+			$echoedHTML .="<div class='image-wrapper'> "; //Оболочка для всех плиток с фотографиями 
 			foreach ($categories as $category){ //Выбор фотографий школы по каждой категории 
 				
-				if($category['id'] == 9){
+				if($category['id'] == 9){ //Если категория дефектов, выбрать фотографии и в категории дефектов и с тегом дефека в другой категории 
 					$photos_stm = $dtb->prepare("SELECT * FROM photos_edu WHERE schid = ? AND (category = ? OR isDefect = 1) ");
 				} else {
 					$photos_stm = $dtb->prepare("SELECT * FROM photos_edu WHERE schid = ? AND category = ?");
