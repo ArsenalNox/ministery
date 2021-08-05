@@ -11,13 +11,15 @@ if($stm->execute()){
 		WHERE munipal.id = ?");
 		$countStm->bindParam(1, $row['id']);
 		$name = $row['name'];
-		if($countStm->execute()){
+        if($countStm->execute()){
+            echo "<table>";
 			while($row = $countStm->fetch(PDO::FETCH_ASSOC)){
 				if($row['count'] == 0){
 					continue;
 				}
 				echo "$name: ".$row['count'].'<br>';
-			}
+            }
+            echo "</table>";
 		}
 	}
 } else {

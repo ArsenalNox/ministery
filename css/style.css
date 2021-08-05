@@ -218,6 +218,7 @@ header ul li a{
 
 .loading-wrapper img{
     width: 30vw;
+    user-select: none;
 }
 
 @media screen and (orientation:portrait) {

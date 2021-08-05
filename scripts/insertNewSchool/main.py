@@ -46,7 +46,7 @@ for subdir, dirs, files in os.walk(rootdir):
 			category = file.split('_')[0]
 		elif '-' in file:
 			category = file.split('-')[0]
-		
+
 		extension = file.split('.')[1].lower()
 		if extension not in allowed_extensions:
 			print('File {} has forbidden extension ("{}")'.format(file, extension))

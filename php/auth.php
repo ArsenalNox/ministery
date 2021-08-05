@@ -4,6 +4,9 @@ $admin = false;
 $user_region = null;
 
 function isAuth(){
+    /* 
+     *  Функция аунтефикации 
+     * */
     global $dtb, $admin, $user_region;
 
     if(isset($_COOKIE['access'])){
