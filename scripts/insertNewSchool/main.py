@@ -1,5 +1,6 @@
 import os
 import mysql.connector 
+import sys 
 
 dbConn = mysql.connector.connect(
 	host = 'localhost',
@@ -9,7 +10,8 @@ dbConn = mysql.connector.connect(
 )
 cursor = dbConn.cursor()
 
-schoolDirectory ='155'
+schoolDirectory = sys.argv[1]
+print("Inserting school ".format(schoolDirectory))
 
 rootdir = "C:/xampp/htdocs/ministery/img/{}".format(schoolDirectory)
 
