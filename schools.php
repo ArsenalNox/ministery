@@ -51,7 +51,12 @@ if(isset($_GET['region'])){
         $informMessage = "Показываются школы муниципалитета $regionName";
     } 
     
-	$stm = $dtb->prepare("SELECT educational.*, munipal.name as 'rname' FROM educational LEFT JOIN munipal ON educational.region = munipal.id WHERE munipal.id = ? ");
+	$stm = $dtb->prepare("
+	SELECT 
+		educational.*, 
+		munipal.name as 'rname' 
+	FROM educational 
+	LEFT JOIN munipal ON educational.region = munipal.id WHERE munipal.id = ? ");
 	$stm->bindParam(1, $_GET['region']);
     
 	$allSchools = false;
@@ -113,100 +118,63 @@ if($stm->execute()){ //Выборка всех школ
             //верхняя плашка 
 			$echoedHTML.= "
 			<div class='school-card'>
-			<h4  class='school-inner-text'> ".$row['name'].", $message".$row['build_complete']." г.</h4>
+			<h4  class='school-inner-text'> ".$row['name']."$message </h4>
 			<p   class='school-inner-text'>  Проектная мощность: ".$row['project_capacity'].", учащихся: ".$row['factial_capacity']." </p> 
 			";
 		
 
             if($debug) echo "<br>";
 
-			$echoedHTML .="<div class='image-wrapper'> "; //Оболочка для всех плиток с фотографиями 
-			foreach ($categories as $category){ //Выбор фотографий школы по каждой категории 
-				
-				if($category['id'] == 9){ //Если категория дефектов, выбрать фотографии и в категории дефектов и с тегом дефека в другой категории 
-					$photos_stm = $dtb->prepare("SELECT * FROM photos_edu WHERE schid = ? AND (category = ? OR isDefect = 1) ");
-				} else {
-					$photos_stm = $dtb->prepare("SELECT * FROM photos_edu WHERE schid = ? AND category = ?");
+			$test_school_photo_count = $dtb->prepare("SELECT COUNT(id) as 'photo_count' FROM photos_edu WHERE schid = ?");
+			$test_school_photo_count->bindParam(1, $row['id']);
+
+			$echoedHTML .="
+			<p> Фото до ремонта </p>
+			<div class='image-wrapper'> "; //Оболочка для всех плиток с фотографиями 
+
+			if ($test_school_photo_count->execute()){
+				while($test_row = $test_school_photo_count->fetch(PDO::FETCH_ASSOC)){
+					if ($test_row['photo_count'] == 0){
+						$echoedHTML .='<p>Список фотографий пуст</p>';
+					}
 				}
+			}
+
+			foreach ($categories as $category){ //Выбор фотографий школы по каждой категории 
+				if ($category['id'] == 16){
+					continue;
+				}
+
+				$photos_stm = $dtb->prepare("SELECT * FROM photos_edu WHERE schid = ? AND category = ?");
 				
 				$photos_stm->bindParam(1, $row['id']);
 				$photos_stm->bindParam(2, $category['id']);
-				if($photos_stm->execute()){ if($photos_stm->rowCount()>0){
-				
-					if($debug){ echo "Удалось получить фото школы ".$row['name']." категории ".$category['name'] . " в количестве ".$photos_stm->rowCount()."<br>"; }
-				
-					$first = true;
-					while($photo_row = $photos_stm->fetch(PDO::FETCH_ASSOC)){
-						if($first){
-							$echoedHTML .= "
-							<div class='image-holder images' style='background-image: url(".$photo_row['thumb'].")' categoryName='".$category['name']."' category='".$category['id']."' currentImage='0' '>
-							";
-							$first = false;
-						}  
-							$echoedHTML .= "<img 
-								original='".$photo_row['path']."' 
-								src='".$photo_row['thumb']."' 
-								loading=lazy
-								style='display: none'>";
+				if($photos_stm->execute()){ 
+					if($photos_stm->rowCount()>0){
+					
+						if($debug){ echo "Удалось получить фото школы ".$row['name']." категории ".$category['name'] . " в количестве ".$photos_stm->rowCount()."<br>"; }
+					
+						$first = true;
+						while($photo_row = $photos_stm->fetch(PDO::FETCH_ASSOC)){
+							if($first){
+								$echoedHTML .= "
+								<div class='image-holder images' style='background-image: url(".$photo_row['thumb'].")' categoryName='".$category['name']."' category='".$category['id']."' currentImage='0' '>
+								";
+								$first = false;
+							}  
+								$echoedHTML .= "<img 
+									original='".$photo_row['path']."' 
+									src='".$photo_row['thumb']."' 
+									loading=lazy
+									style='display: none'>";
+							
+						}	
 						
-					}	
-					$echoedHTML.="</div>";
-				}}					
+						$echoedHTML.="</div>";
+					}
+				}					
 			}
 			$echoedHTML.="</div>";
-
-		
-			if( 
-				!(
-				$row['project_capacity'] === null ||
-				$row['second_shift'] 	 === null ||	
-				$row['bybus_count']  	 === null ||
-				$row['bybus_km']		 === null
-				)
-			){
-				$echoedHTML.= "
-				<div class='school-content-wrapper'>
-				<p   class='school-inner-text'> ".$row['address'] ."</p>
-				<p   class='school-inner-text'> Год постройки: " . $row['build_complete'] . "</p>
-				<p   class='school-inner-text'> Проектная мощность, мест: " . $row['project_capacity'] . "</p>
-				<p   class='school-inner-text'> Фактическая наполняемость, количество детей: " . $row['factial_capacity'] . "</p>
-				<p   class='school-inner-text'> Обучающихся во 2 смену: " . $row['second_shift'] . "</p>
-				";
-
-				if($row['bybus_count'] == 0){
-					$echoedHTML.= "<p class='school-inner-text'> Подвоз автобусом не осуществляется </p>";
-				} else {
-					$echoedHTML.= "<div class='school-inner-text'>
-					<p>Подвоз школьными автобусами </p>
-					<p>Кол-во учащихся ".$row['bybus_count']."</p>
-					<p>Расстояние (максимальное) (км) ".$row['bybus_km']."</p>
-					</div>";
-				}
-
-				$echoedHTML.="
-				<div class='repair school-inner-text'> 
-					<p> Тип перекрытий: ".$row['level_type']."</p> 
-					<p> Требуется ремонт: ".$row['leve_repair']." </p> 
-				</div>";
-				$echoedHTML.="<div class='repair school-inner-text'> <p> Вид кровли: ".$row['roof_type'].", ".$row['roof_area']." м.кв</p> <p> Требуется ремонт: ".$row['roof_repair']." </p> </div>";
-				$echoedHTML.="<div class='repair school-inner-text'> <p> Требуется ремонт отмостки: ".$row['otmost_repair']." </p> </div>";
-				$echoedHTML.="<div class='repair school-inner-text'> <p> Требуется ремонт фундамента: ".$row['foundation_repair']." </p> </div>";
-
-				
-				$echoedHTML.="
-				<div class='repair school-inner-text'>
-					<p>Внутренние инженерные сети</p>
-					<p> Требуется ремонт сети элекроснабжения: ".$row['electricity_repair']." </p> 
-					<p> Требуется ремонт сети теплоснабжения:  ".$row['thermal_repair']." </p> 
-					<p> Требуется ремонт сети водоснабжения:   ".$row['water_repair']." </p> 
-					<p> Требуется ремонт канализации: 		   ".$row['sewer_repair']." </p> 
-					
-				</div> </div>";
-			}
-
-
-			$echoedHTML.=' </div>';
-
 
 		}
 		echo $echoedHTML;
