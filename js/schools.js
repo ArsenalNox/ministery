@@ -1,3 +1,6 @@
+/*
+Контроль image viewer'a, переключение отображения контента школы
+*/
 var detectingDoubleClick = false;
 
 var detectedLongTouch = false;
@@ -189,6 +192,7 @@ function processClick(target){ //Обработчик нажаий
 
 
     if(target.classList.contains('image-holder')){ //Обработчик на листание картинок 
+        console.log('A')
         if(!detectingDoubleClick){
 
             if(detectingLongTouch){
@@ -247,3 +251,18 @@ document.addEventListener('touchstart',(e) => { //Слушает клики, о�
         detectingLongTouch = false
     }, 2000)
 })
+
+
+function show_content(id, clicked){
+    let elem = document.getElementById(id)
+    if (elem.classList.contains('hidden-content')){
+        elem.classList.remove('hidden-content')
+        clicked.innerHTML = 'Скрыть фотографии &#8593;'
+        elem.style.opacity = 1
+
+    } else {
+        elem.classList.add('hidden-content')
+        clicked.innerHTML = 'Показать фотографии &#8595;'
+        elem.style.opacity = 0
+    }
+}
