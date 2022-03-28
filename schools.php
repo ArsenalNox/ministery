@@ -29,9 +29,15 @@ $debug = false;
 <section class="school-content">
 <?php
 
-if(isset($_GET['region'])){
-    $regionerror=false;
-	$stm = $dtb->prepare("SELECT name FROM munipal WHERE id = ? ");
+if(isset($_GET['region'])){ 
+	/*
+		Если был предоставлен код региона 
+	*/
+
+    $regionerror=false; #Флаг ошибки при получении региона 
+	$allSchools = false; #Флаг получения всех школ (очевидно)
+
+	$stm = $dtb->prepare("SELECT name FROM munipal WHERE id = ? "); 
 	$stm->bindParam(1, $_GET['region']);
     if($stm->execute()){
         if($stm->rowCount() > 0){
@@ -41,7 +47,6 @@ if(isset($_GET['region'])){
             $regionName = 'Неправильный код региона';
             $regionerror = true;
         }
-
 	} else {
         $regionName = 'UNDEFINED';
         $regionerror = true;
@@ -56,10 +61,10 @@ if(isset($_GET['region'])){
 		educational.*, 
 		munipal.name as 'rname' 
 	FROM educational 
-	LEFT JOIN munipal ON educational.region = munipal.id WHERE munipal.id = ? ");
+	LEFT JOIN munipal ON educational.region = munipal.id WHERE munipal.id = ? 
+	");
 	$stm->bindParam(1, $_GET['region']);
     
-	$allSchools = false;
 } else {
 	$informMessage = "Показываются все школы ";
 	$allSchools = true;
@@ -82,7 +87,6 @@ if($stm->execute()){ //Выборка всех школ
 		 */
 		$echoedHTML = '';
 
-		//Загрузка категорий 
 		$categories = [];
 		$category_select_stm = $dtb->prepare("SELECT * FROM `photo_categories`");
 		if($category_select_stm->execute()){
@@ -106,7 +110,7 @@ if($stm->execute()){ //Выборка всех школ
 			print_r($categories);
 			echo "</pre>";
 		}
-
+		$content_id = 1;
 		while($row = $stm->fetch(PDO::FETCH_ASSOC)){ //Генерация карточек школ
 
 			if($allSchools) { //Если показываются все школы, писать муниципалитет, чтобы не запутаться
@@ -120,16 +124,17 @@ if($stm->execute()){ //Выборка всех школ
 			<div class='school-card'>
 			<h4  class='school-inner-text'> ".$row['name']."$message </h4>
 			<p   class='school-inner-text'>  Проектная мощность: ".$row['project_capacity'].", учащихся: ".$row['factial_capacity']." </p> 
+			<p class='show-content-press school-inner-text' onclick='show_content(".$content_id.", this)'> Показать фотографии &#8595;</p>
+			<div class='school-content-togglable hidden-content' id='".$content_id."'>
 			";
 		
 
-            if($debug) echo "<br>";
+            if($debug) echo "<br>"; //?
 
 			$test_school_photo_count = $dtb->prepare("SELECT COUNT(id) as 'photo_count' FROM photos_edu WHERE schid = ?");
 			$test_school_photo_count->bindParam(1, $row['id']);
 
 			$echoedHTML .="
-			<p> Фото до ремонта </p>
 			<div class='image-wrapper'> "; //Оболочка для всех плиток с фотографиями 
 
 			if ($test_school_photo_count->execute()){
@@ -140,6 +145,7 @@ if($stm->execute()){ //Выборка всех школ
 				}
 			}
 
+			$i = 1;
 			foreach ($categories as $category){ //Выбор фотографий школы по каждой категории 
 				if ($category['id'] == 16){
 					continue;
@@ -157,24 +163,41 @@ if($stm->execute()){ //Выборка всех школ
 						$first = true;
 						while($photo_row = $photos_stm->fetch(PDO::FETCH_ASSOC)){
 							if($first){
-								$echoedHTML .= "
-								<div class='image-holder images' style='background-image: url(".$photo_row['thumb'].")' categoryName='".$category['name']."' category='".$category['id']."' currentImage='0' '>
-								";
+						
 								$first = false;
-							}  
-								$echoedHTML .= "<img 
-									original='".$photo_row['path']."' 
-									src='".$photo_row['thumb']."' 
-									loading=lazy
-									style='display: none'>";
+								$echoedHTML .="
+								<p class='school-inner-text'> ".$i.". ".$category['name']." </p>
 							
+								<p class='school-inner-text'> Фото до ремонта </p>
+								<div style='display: flex' class='scollable-horizontal'>
+								";
+							}  
+							$echoedHTML .= "
+							<div 
+								class='image-holder images' 
+								style='background-image: url(".$photo_row['thumb'].")' 
+								categoryName='".$category['name']."' 
+								category='".$category['id']."' 
+								currentImage='0' '>
+
+							";
+
+							$echoedHTML .= "<img 
+
+							original='".$photo_row['path']."' 
+							src='".$photo_row['thumb']."' 
+							loading=lazy
+							style='display: none'></div>";
+
+;
 						}	
 						
 						$echoedHTML.="</div>";
 					}
 				}					
+				$i++;
 			}
-			$echoedHTML.="</div>";
+			$echoedHTML.="</div></div>";
 
 		}
 		echo $echoedHTML;

@@ -1,13 +1,14 @@
 :root{
 	--primary:   #e1f5fe;
 	--secondary: #afc2cb;
+	--tetriary:  #cfe3ec;
 	--light:     #FFF;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
 *{
-	margin:  0randint;
+	margin:  0;
 	padding: 0;
 	box-sizing: border-box;
 }
@@ -83,7 +84,7 @@ header ul li a{
 
 .school-card{ 
 	background-color: var(--primary);
-	width: 100%;
+	width: 80%;
 	margin: 1rem;
 }
 
@@ -92,6 +93,8 @@ header ul li a{
 }
 
 .images{
+	background-repeat: no-repeat;
+  	background-position: center center;
 	display: flex;
 	gap: 0.2rem;
 	justify-content: center;
@@ -120,13 +123,15 @@ header ul li a{
 	position: relative;
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 7.41vw;
 	transition: all 0.2s;
+	width: 160px;
+	height: 250px;
 }
 
 .image-wrapper{
 	display: grid;
-	grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto; 
+	grid-template-columns: auto ; 
+	transition: 2s;
 }
 
 .viewer-wrapper{
@@ -144,6 +149,7 @@ header ul li a{
 	background-color: var(--primary);
 	padding-top: 0.6rem;
 	padding-bottom: 0.6rem;
+	margin-top: 0;
 }
 
 .viewer-image{
@@ -208,8 +214,6 @@ header ul li a{
 
 .loading-wrapper{
     position: fixed;
-
-
     justify-content: center;
     align-items: center;
 
@@ -221,18 +225,25 @@ header ul li a{
     user-select: none;
 }
 
-@media screen and (orientation:portrait) {
-	.school-card{
-		width: 90%;
-	}
-	.image-holder{
-		height: 30vw;
-	}
-	.change-button{
-		width: 20%;
-	}
+.scollable-horizontal{
+	display: flex;
+	overflow-x: auto;
+	background-color: var(--tetriary);
 }
 
-@media screen and (orientation:landscape) {
+.hidden-content{
+	display: none;
+}
 
+.school-content-toggleable{
+	transition: 1s;
+}
+
+.show-content-press{
+	cursor: pointer;
+	background-color: #ecfff9;
+	width: max-content;
+	user-select: none;
+	margin-left: 1rem;
+	margin-bottom: 1rem;
 }
