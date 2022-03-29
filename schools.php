@@ -124,10 +124,9 @@ if($stm->execute()){ //Выборка всех школ
 			<div class='school-card'>
 			<h4  class='school-inner-text'> ".$row['name']."$message </h4>
 			<p   class='school-inner-text'>  Проектная мощность: ".$row['project_capacity'].", учащихся: ".$row['factial_capacity']." </p> 
-			<p class='show-content-press school-inner-text' onclick='show_content(".$content_id.", this)'> Показать фотографии &#8595;</p>
-			<div class='school-content-togglable hidden-content' id='".$content_id."'>
 			";
 		
+		    $content_id++;
 
             if($debug) echo "<br>"; //?
 
@@ -139,11 +138,18 @@ if($stm->execute()){ //Выборка всех школ
 
 			if ($test_school_photo_count->execute()){
 				while($test_row = $test_school_photo_count->fetch(PDO::FETCH_ASSOC)){
-					if ($test_row['photo_count'] == 0){
-						$echoedHTML .='<p>Список фотографий пуст</p>';
-					}
+                    if ($test_row['photo_count'] == 0){
+						$echoedHTML .='<p class="school-inner-text">Список фотографий пуст</p>';
+                    } else {
+                        $echoedHTML .="
+            			<p class='show-content-press school-inner-text' onclick='show_content(".$content_id.", this)'> Показать фотографии &#8595;</p>
+                        ";                    
+                    }
 				}
 			}
+            $echoedHTML .="
+			<div class='school-content-togglable hidden-content' id='".$content_id."'>
+            ";
 
 			$i = 1;
 			foreach ($categories as $category){ //Выбор фотографий школы по каждой категории 
@@ -166,6 +172,8 @@ if($stm->execute()){ //Выборка всех школ
 						
 								$first = false;
 								$echoedHTML .="
+                                <br>
+                                <hr>
 								<p class='school-inner-text'> ".$i.". ".$category['name']." </p>
 							
 								<p class='school-inner-text'> Фото до ремонта </p>
@@ -197,7 +205,7 @@ if($stm->execute()){ //Выборка всех школ
 				}					
 				$i++;
 			}
-			$echoedHTML.="</div></div>";
+			$echoedHTML.="</div></div></div>";
 
 		}
 		echo $echoedHTML;

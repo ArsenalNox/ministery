@@ -83,6 +83,7 @@ header ul li a{
 }
 
 .school-card{ 
+    overflow-x: hidden;
 	background-color: var(--primary);
 	width: 80%;
 	margin: 1rem;
